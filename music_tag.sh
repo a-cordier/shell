@@ -1,4 +1,7 @@
 #!/bin/bash
+## This script will add some usefull tags to files 
+## using metaflac if file has a flac extension
+## using mid3v2 if file has a mp3 extension
 
 parse_arguments() {
   while getopts a:c:g: option
