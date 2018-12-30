@@ -2,7 +2,7 @@
 ## This script will add some usefull tags to files 
 ## using metaflac if file has a flac extension
 ## using mid3v2 if file has a mp3 extension
-
+## Example of running in cmus: run music_tag.sh -g Techno {} (will tag any selected file with the genre 'Techno'
 
 tag_flac() {
   cmd="metaflac"  
