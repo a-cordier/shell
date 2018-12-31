@@ -2,24 +2,24 @@
 ## This script will add some usefull tags to files 
 ## using metaflac if file has a flac extension
 ## using mid3v2 if file has a mp3 extension
-## Example of running in cmus: run music_tag.sh -g Techno {} (will tag any selected file with the genre 'Techno'
+## Example of running in cmus: run music_tag.sh -g Techno {} (will tag any selected file with the genre 'Techno')
 
 tag_flac() {
   cmd="metaflac"  
-  if [ -n "$ARTIST" ]; then cmd="${cmd} --remove-tag ARTIST --set-tag ARTIST='${ARTIST}'"; fi
-  if [ -n "$GENRE" ]; then cmd="${cmd} --remove-tag GENRE --set-tag GENRE='${GENRE}'"; fi
-  if [ -n "$ALBUM_ARTIST" ]; then cmd="${cmd} --remove-tag ALBUM_ARTIST --set-tag ALBUM_ARTIST='${ALBUM_ARTIST}'"; fi
-  if [ -n "$ALBUM" ]; then cmd="${cmd} --remove-tag ALBUM --set-tag ALBUM='${ALBUM}'"; fi
+  if [ -n "$ARTIST" ]; then cmd="${cmd} --remove-tag ARTIST --set-tag ARTIST=$(printf '%q' $ARTIST)"; fi
+  if [ -n "$GENRE" ]; then cmd="${cmd} --remove-tag GENRE --set-tag GENRE=$(printf '%q' $GENRE)"; fi
+  if [ -n "$ALBUM_ARTIST" ]; then cmd="${cmd} --remove-tag ALBUM_ARTIST --set-tag ALBUM_ARTIST=$(printf '%q' $ALBUM_ARTIST)"; fi
+  if [ -n "$ALBUM" ]; then cmd="${cmd} --remove-tag ALBUM --set-tag ALBUM=$(printf '%q' $ALBUM)"; fi
   echo "Running $cmd $1"
   eval "$cmd $(printf '%q' $1)"
 }
 
 tag_mp3() {
   cmd="mid3v2"
-  if [ -n "$ARTIST" ]; then cmd="${cmd} -a '${ARTIST}'"; fi
-  if [ -n "$GENRE" ]; then cmd="${cmd} -g '${GENRE}'"; fi
-  if [ -n "$ALBUM_ARTIST" ]; then cmd="${cmd} --TPE2 '${ALBUM_ARTIST}'"; fi
-  if [ -n "$ALBUM" ]; then cmd="${cmd} -A '${ALBUM}'"; fi
+  if [ -n "$ARTIST" ]; then cmd="${cmd} -a $(printf '%q' $ARTIST)"; fi
+  if [ -n "$GENRE" ]; then cmd="${cmd} -g $(printf '%q' $GENRE)"; fi
+  if [ -n "$ALBUM_ARTIST" ]; then cmd="${cmd} --TPE2 $(printf '%q' $ALBUM_ARTIST)"; fi
+  if [ -n "$ALBUM" ]; then cmd="${cmd} -A $(printf '%q' $ALBUM)"; fi
   echo "Running $cmd $1"
   eval "$cmd $(printf '%q' $1)"
 }
@@ -51,8 +51,7 @@ main() {
   
   ((!$#)) && echo "File name is required"
   
-  OLD_IFS=$IFS
-  IFS=$'\n'
+  OLD_IFS=$IFS; IFS=$'\n'
   for file in $@; do tag_file "$file"; done
   IFS=$OLD_IFS
 }
