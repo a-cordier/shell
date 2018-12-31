@@ -6,18 +6,18 @@
 
 tag_flac() {
   cmd="metaflac"  
-  if [ -n "$ARTIST" ]; then cmd="${cmd} --remove-tag ARTIST --set-tag ARTIST=${ARTIST}"; fi
-  if [ -n "$GENRE" ]; then cmd="${cmd} --remove-tag GENRE --set-tag GENRE=${GENRE}"; fi
-  if [ -n "$ALBUM_ARTIST" ]; then cmd="${cmd} --remove-tag ALBUM_ARTIST --set-tag ALBUM_ARTIST=${ALBUM_ARTIST}"; fi
+  if [ -n "$ARTIST" ]; then cmd="${cmd} --remove-tag ARTIST --set-tag ARTIST='${ARTIST}'"; fi
+  if [ -n "$GENRE" ]; then cmd="${cmd} --remove-tag GENRE --set-tag GENRE='${GENRE}'"; fi
+  if [ -n "$ALBUM_ARTIST" ]; then cmd="${cmd} --remove-tag ALBUM_ARTIST --set-tag ALBUM_ARTIST='${ALBUM_ARTIST}'"; fi
   echo "Running $cmd $1"
   eval "$cmd $(printf '%q' $1)"
 }
 
 tag_mp3() {
   cmd="mid3v2"
-  if [ -n "$ARTIST" ]; then cmd="${cmd} -a ${ARTIST}"; fi
-  if [ -n "$GENRE" ]; then cmd="${cmd} -g ${GENRE}"; fi
-  if [ -n "$ALBUM_ARTIST" ]; then cmd="${cmd} --TPE2 ${ALBUM_ARTIST}"; fi
+  if [ -n "$ARTIST" ]; then cmd="${cmd} -a '${ARTIST}'"; fi
+  if [ -n "$GENRE" ]; then cmd="${cmd} -g '${GENRE}'"; fi
+  if [ -n "$ALBUM_ARTIST" ]; then cmd="${cmd} --TPE2 '${ALBUM_ARTIST}'"; fi
   echo "Running $cmd $1"
   eval "$cmd $(printf '%q' $1)"
 }
